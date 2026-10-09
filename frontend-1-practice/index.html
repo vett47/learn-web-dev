@@ -1,26 +1,328 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!--
-      ЗАДАНИЕ
-      ========
-      Сверстать страницу выбора даты и времени по своему макету.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      Пока это только вёрстка. Никакого JavaScript — ни кликов,
-      ни переходов, ни выбора дня. Всё статично.
+    <title>BARBERY — Выбор даты и времени</title>
 
-      Стили пишите в styles.css. Разметку — здесь.
-    -->
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-    <div class="page">
-      <!-- Начните отсюда. Разметьте шапку, основную область
-           с календарём и слотами, подвал. -->
-    </div>
-  </body>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <a class="logo" href="#">BARBERY</a>
+
+            <nav class="main-nav" aria-label="Основная навигация">
+                <a class="nav-link" href="#">УСЛУГИ</a>
+                <a class="nav-link" href="#">МАСТЕРА</a>
+                <a class="nav-link" href="#">ОТЗЫВЫ</a>
+                <a class="nav-link" href="#">КОНТАКТЫ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page">
+
+        <section class="booking-steps" aria-label="Этапы записи">
+            <ol class="steps-list">
+
+                <li class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-name">МАСТЕР</span>
+                    <span class="step-line"></span>
+                </li>
+
+                <li class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-name">УСЛУГА</span>
+                    <span class="step-line"></span>
+                </li>
+
+                <li class="step step-active">
+                    <span class="step-number">3</span>
+                    <span class="step-name">ДАТА</span>
+                    <span class="step-line"></span>
+                </li>
+
+                <li class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-name">КОНТАКТЫ</span>
+                    <span class="step-line"></span>
+                </li>
+
+                <li class="step">
+                    <span class="step-number">5</span>
+                    <span class="step-name">ПОДТВЕРЖДЕНИЕ</span>
+                </li>
+
+            </ol>
+        </section>
+
+        <section class="booking-section">
+
+            <div class="booking-heading">
+                <a class="back-link" href="#">← Назад</a>
+
+                <h1 class="page-title">
+                    Выберите дату и время
+                </h1>
+            </div>
+
+            <div class="booking-grid">
+
+                <section class="calendar-card" aria-labelledby="calendar-title">
+
+                    <div class="calendar-header">
+
+                        <h2 class="card-title" id="calendar-title">
+                            Октябрь 2026
+                        </h2>
+
+                        <div class="calendar-controls">
+
+                            <button
+                                class="calendar-arrow"
+                                type="button"
+                                aria-label="Предыдущий месяц"
+                            >
+                                ‹
+                            </button>
+
+                            <button
+                                class="calendar-arrow"
+                                type="button"
+                                aria-label="Следующий месяц"
+                            >
+                                ›
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="weekdays" aria-hidden="true">
+                        <span>Пн</span>
+                        <span>Вт</span>
+                        <span>Ср</span>
+                        <span>Чт</span>
+                        <span>Пт</span>
+                        <span>Сб</span>
+                        <span>Вс</span>
+                    </div>
+
+                    <div class="calendar-days">
+
+                        <button class="calendar-day day-outside" type="button" disabled>28</button>
+                        <button class="calendar-day day-outside" type="button" disabled>29</button>
+                        <button class="calendar-day day-outside" type="button" disabled>30</button>
+
+                        <button class="calendar-day" type="button">1</button>
+                        <button class="calendar-day" type="button">2</button>
+                        <button class="calendar-day" type="button">3</button>
+                        <button class="calendar-day" type="button">4</button>
+
+                        <button class="calendar-day" type="button">5</button>
+                        <button class="calendar-day" type="button">6</button>
+                        <button class="calendar-day" type="button">7</button>
+                        <button class="calendar-day" type="button">8</button>
+                        <button class="calendar-day" type="button">9</button>
+                        <button class="calendar-day" type="button">10</button>
+                        <button class="calendar-day" type="button">11</button>
+
+                        <button class="calendar-day" type="button">12</button>
+                        <button class="calendar-day" type="button">13</button>
+                        <button class="calendar-day" type="button">14</button>
+                        <button class="calendar-day" type="button">15</button>
+                        <button class="calendar-day" type="button">16</button>
+                        <button class="calendar-day" type="button">17</button>
+                        <button class="calendar-day" type="button">18</button>
+
+                        <button class="calendar-day" type="button">19</button>
+                        <button class="calendar-day" type="button">20</button>
+                        <button class="calendar-day" type="button">21</button>
+                        <button class="calendar-day" type="button">22</button>
+                        <button class="calendar-day" type="button">23</button>
+                        <button class="calendar-day" type="button">24</button>
+                        <button class="calendar-day" type="button">25</button>
+
+                        <button class="calendar-day" type="button">26</button>
+                        <button class="calendar-day" type="button">27</button>
+                        <button class="calendar-day" type="button">28</button>
+                        <button class="calendar-day" type="button">29</button>
+                        <button class="calendar-day" type="button">30</button>
+                        <button class="calendar-day" type="button">31</button>
+
+                        <button class="calendar-day day-outside" type="button" disabled>1</button>
+
+                    </div>
+
+                </section>
+
+                <section class="time-card" aria-labelledby="time-title">
+
+                    <h2 class="card-title" id="time-title">
+                        Доступное время
+                    </h2>
+
+                    <div class="time-grid">
+
+                        <button class="time-slot" type="button">
+                            10:00
+                        </button>
+
+                        <button class="time-slot slot-busy" type="button" disabled>
+                            <span class="slot-time">11:00</span>
+                            <span class="slot-status">Занято</span>
+                        </button>
+
+                        <button class="time-slot" type="button">
+                            12:00
+                        </button>
+
+                        <button class="time-slot slot-busy" type="button" disabled>
+                            <span class="slot-time">13:00</span>
+                            <span class="slot-status">Занято</span>
+                        </button>
+
+                        <button class="time-slot" type="button">
+                            14:00
+                        </button>
+
+                        <button class="time-slot" type="button">
+                            15:00
+                        </button>
+
+                        <button class="time-slot" type="button">
+                            16:00
+                        </button>
+
+                        <button class="time-slot" type="button">
+                            17:00
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <div class="booking-summary">
+
+                <p class="selected-date">
+                    Дата и время не выбраны
+                </p>
+
+                <button class="next-button" type="button" disabled>
+                    Далее →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="footer-container">
+
+            <div class="footer-columns">
+
+                <div class="footer-column footer-brand">
+
+                    <p class="footer-logo">
+                        BARBERY
+                    </p>
+
+                    <p class="footer-description">
+                        Барбершоп для тех, кто ценит стиль,
+                        качество и своё время.
+                    </p>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h2 class="footer-title">
+                        КОНТАКТЫ
+                    </h2>
+
+                    <address class="footer-contacts">
+
+                      <p class="contact-item">
+                          <svg
+                              class="contact-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                          >
+                              <path
+                                  d="M12 21s7-6.1 7-13a7 7 0 1 0-14 0c0 6.9 7 13 7 13Z"
+                              ></path>
+
+                              <circle
+                                  cx="12"
+                                  cy="8"
+                                  r="2.5"
+                              ></circle>
+                          </svg>
+
+                          <span>ул. Садовая, 15, Москва</span>
+                      </p>
+
+                      <p class="contact-item">
+                          <svg
+                              class="contact-icon"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                          >
+                              <path
+                                  d="M6.6 3.5 9 8.3 6.9 10c1.5 3.1 4 5.6 7.1 7.1l1.7-2.1 4.8 2.4c.3.2.5.5.4.9-.4 1.8-2 3.2-3.9 3.2C9 21.5 2.5 15 2.5 7c0-1.9 1.4-3.5 3.2-3.9.4-.1.7.1.9.4Z"
+                              ></path>
+                          </svg>
+
+                          <span>+7 (495) 123-45-67</span>
+                      </p>
+
+                  </address>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h2 class="footer-title">
+                        РЕЖИМ РАБОТЫ
+                    </h2>
+
+                    <p class="working-hours">
+                        Пн–Пт: 10:00–21:00
+                    </p>
+
+                    <p class="working-hours">
+                        Сб–Вс: 10:00–20:00
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p class="copyright">
+                    © 2026 BARBERY. Все права защищены.
+                </p>
+
+                <a class="privacy-link" href="#">
+                    Политика конфиденциальности
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
 </html>
