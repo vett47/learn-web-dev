@@ -1,59 +1,143 @@
-// App — корневой компонент приложения.
-//
-// ЗАДАНИЕ
-// --------
-// Перенесите свою страницу выбора даты и времени из нативного JS
-// на React. У вас уже есть:
-//   - готовая вёрстка (HTML);
-//   - готовые стили (CSS);
-//   - рабочий код на нативном JS (валидация дат, рендер календаря,
-//     обработчики кликов, выбор слота).
-//
-// Теперь нужно то же самое сделать в React.
-//
-// ЧТО НУЖНО СДЕЛАТЬ
-// ------------------
-// 1. Разбить страницу на компоненты. Как именно — решайте сами.
-//    Обычно выделяют: шапку, подвал, календарь, сетку слотов,
-//    нижнюю панель.
-//
-// 2. Перенести вёрстку из HTML в JSX. Стили оставить как есть,
-//    просто положить их в тот же проект (например, в src/styles/
-//    или рядом с компонентами).
-//
-// 3. Заменить нативное состояние (переменные + прямые манипуляции
-//    с DOM) на useState. Какие именно данные должны жить в состоянии —
-//    подумайте сами. Скорее всего: текущий месяц, выбранный день,
-//    выбранное время, массив слотов.
-//
-// 4. Рендер календаря и слотов делать через JSX и .map(),
-//    без innerHTML и querySelector.
-//
-// 5. Обработчики кликов — через onClick прямо в JSX,
-//    без addEventListener.
-//
-// 6. Функции для работы с датами, которые вы уже написали
-//    на нативном JS (построение сетки календаря, сравнение дат,
-//    проверка «не раньше сегодня»), можно переиспользовать.
-//    Они чистые — не зависят от React. Создайте файл
-//    src/utils/date.js и перенесите их туда.
-//
-//
-// ПОДСКАЗКА
-// ---------
-// Если что-то не работает или непонятно, как перевести нативный
-// код на React — вернитесь к лекции. Там разбирались все
-// основные приёмы: состояние, пропсы, рендер списков, колбэки.
-//
-// Ниже — пустой каркас. Здесь можно начать писать.
+import { useState } from "react";
+
+import Header from "./components/Header.jsx";
+import BookingSteps from "./components/BookingSteps.jsx";
+import Calendar from "./components/Calendar.jsx";
+import TimeSlots from "./components/TimeSlots.jsx";
+import BookingBottomBar from "./components/BookingBottomBar.jsx";
+import Footer from "./components/Footer.jsx";
+
+// сегодняшняя дата без времени
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+
+const DEFAULT_SLOTS = [
+    { time: "10:00", available: true },
+    { time: "11:00", available: false },
+    { time: "12:00", available: true },
+    { time: "13:00", available: false },
+    { time: "14:00", available: true },
+    { time: "15:00", available: true },
+    { time: "16:00", available: true },
+    { time: "17:00", available: true }
+];
+
 
 function App() {
-  return (
-    <div>
-      {/* Начните отсюда. Например, разметьте .page, добавьте шапку,
-            основную область, подвал. */}
-    </div>
-  );
+    const [currentMonth, setCurrentMonth] = useState(today.getMonth());
+    const [currentYear, setCurrentYear] = useState(today.getFullYear());
+
+    const [selectedDay, setSelectedDay] = useState(today.getDate());
+    const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
+    const [selectedYear, setSelectedYear] = useState(today.getFullYear());
+
+    const [selectedTime, setSelectedTime] = useState(null);
+
+    // выбор дня
+    function handleDayClick(day) {
+        setSelectedDay(day);
+        setSelectedMonth(currentMonth);
+        setSelectedYear(currentYear);
+
+        // при смене дня сбрасываем время
+        setSelectedTime(null);
+    }
+
+    // переключение месяца
+    function handleMonthChange(direction) {
+        const newDate = new Date(
+            currentYear,
+            currentMonth + direction,
+            1
+        );
+
+        setCurrentMonth(newDate.getMonth());
+        setCurrentYear(newDate.getFullYear());
+        setSelectedDay(null);
+        setSelectedMonth(null);
+        setSelectedYear(null);
+        setSelectedTime(null);
+    }
+
+    
+    const [slots] = useState(DEFAULT_SLOTS);
+
+    // выбор времени
+    function handleTimeSlotClick(time) {
+        if (selectedDay === null) {
+            return;
+        }
+
+        const slot = slots.find((item) => item.time === time);
+
+        if (!slot || !slot.available) {
+            return;
+        }
+
+        setSelectedTime(time);
+    }
+
+    
+    // переход к следующему этапу записи
+    function handleNextClick() {
+        if (selectedDay === null || selectedTime === null) {
+            return;
+        }
+
+        alert("Дата и время выбраны!");
+    }
+
+
+
+    return (
+        <>
+            <Header />
+
+            <main className="page">
+                <BookingSteps />
+
+                <section className="booking-section">
+                    <div className="booking-heading">
+                        <a className="back-link" href="#">
+                            ← Назад
+                        </a>
+
+                        <h1 className="page-title">
+                            Выберите дату и время
+                        </h1>
+                    </div>
+
+                    <div className="booking-grid">
+                        <Calendar
+                            currentMonth={currentMonth}
+                            currentYear={currentYear}
+                            selectedDay={selectedDay}
+                            selectedMonth={selectedMonth}
+                            selectedYear={selectedYear}
+                            today={today}
+                            onDayClick={handleDayClick}
+                            onMonthChange={handleMonthChange}
+                        />
+                        <TimeSlots
+                            slots={slots}
+                            selectedDay={selectedDay}
+                            selectedTime={selectedTime}
+                            onTimeSlotClick={handleTimeSlotClick}
+                        />
+                    </div>
+                    <BookingBottomBar
+                        selectedDay={selectedDay}
+                        selectedMonth={selectedMonth}
+                        selectedYear={selectedYear}
+                        selectedTime={selectedTime}
+                        onNextClick={handleNextClick}
+                    />
+                </section>
+            </main>
+            <Footer />
+        </>
+    );
 }
 
 export default App;
